@@ -1,0 +1,2 @@
+- IAM is the only service by aws which is fully free.
+- <img width="1351" height="640" alt="image" src="https://github.com/user-attachments/assets/f0576b82-78c9-444b-a5e3-6d733322ca46" />
