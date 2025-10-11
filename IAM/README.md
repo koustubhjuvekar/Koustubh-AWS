@@ -52,7 +52,22 @@ Set password, here we set `Password@123`
 <img width="1352" height="638" alt="image" src="https://github.com/user-attachments/assets/dcf0ac0f-21f9-461d-98ab-97aa68ff7795" />
 
 ??? Users must create a new password at next sign-in - Recommended . WHY?
-Answer: It forces the user to set their own password on first login, improving security.
+
+Answer: It forces the user to set their own password on first login, improving security. <br>
 Example: If any illegal or unauthorized activity happens from that account, the user cannot deny it because only they knew the new password — ensures accountability and integrity.
+<br>
+
+Click on <kbd>**Next**</kbd>
+
+<img width="1351" height="644" alt="image" src="https://github.com/user-attachments/assets/418ce9ac-73dd-4fb0-9db8-ba81621b5432" />
+
+We will create user group later but select this option.
+OR there you can see option to create group, you can click on that also and give group name and add permission.
+
+_Following image is just to show if you click on create group, how it will look like. Close the window and continue to create IAM user_
+<img width="1352" height="642" alt="image" src="https://github.com/user-attachments/assets/583b97c3-af66-4400-8ba2-4de1b4857082" />
+
+Here I will create it later.
+
 
 
