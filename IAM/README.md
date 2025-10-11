@@ -90,11 +90,12 @@ See in image.
 
 <img width="1366" height="43" alt="image" src="https://github.com/user-attachments/assets/c9ce74e3-804b-4d57-a870-384b231717a0" />
 
-now this is ROOT account or Company account, so only id there.
+<!--now this is ROOT account or Company account, so only id there.
 So from now onwards, when you create IAM users or federated users, this account id will be act as domain for everyone.
 for example: prajakta@494341429801
 koustubh@494341429801
-<anyuser@awsaccount>
+<anyuser@awsaccount> -->
+So now you are logged in as root account, so root id or your name will be there. Later when you sign in using IAM, you will see your username below account id.
 
 NOw here,
 
@@ -242,4 +243,6 @@ So fill the details, set new password.
 <img width="1366" height="645" alt="image" src="https://github.com/user-attachments/assets/bcd21634-9f3c-475c-9ab7-0f2111074d35" />
 
 Now you will be logged in to your AWS account as ADMIN, with full authorization.
+
+<img width="1350" height="641" alt="image" src="https://github.com/user-attachments/assets/0508f39e-7eed-41a5-9fa2-795e01404124" />
 
