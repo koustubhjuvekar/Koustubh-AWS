@@ -42,3 +42,17 @@ Example: In a company, all employees log in using their company email via Identi
    -  You choose this if you specifically need an IAM user (for programmatic access, admin user, testing, or emergency access). <br>
 Example: You are making Koustubh_Admin as an IAM admin user.
 
+
+<img width="1351" height="640" alt="image" src="https://github.com/user-attachments/assets/dd6f449b-15e8-44dc-b9a4-c1291b4f7645" />
+
+Here, First we want to create an ADMIN account and then sign out from root. So select `**I want to create IAM user.**`
+
+Set password, here we set `Password@123`
+
+<img width="1352" height="638" alt="image" src="https://github.com/user-attachments/assets/dcf0ac0f-21f9-461d-98ab-97aa68ff7795" />
+
+??? Users must create a new password at next sign-in - Recommended . WHY?
+Answer: It forces the user to set their own password on first login, improving security.
+Example: If any illegal or unauthorized activity happens from that account, the user cannot deny it because only they knew the new password — ensures accountability and integrity.
+
+
