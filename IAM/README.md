@@ -346,3 +346,17 @@ So here we proved that, Virat has only access to EC2 services, other accesses ar
 Log out from Virat's account and log in using `Sachin`'s Account. Create 1 s3 bucket. That will be successfully created. 
 
 Then go to EC2 from same login and try to launch EC2, you won't be able to launch EC2. Try other services also, you won't be able to use anything besides `s3` only.
+
+See, for Sachin all accesses are denied.
+
+<img width="1350" height="639" alt="image" src="https://github.com/user-attachments/assets/68d27003-4bcc-480b-a922-939a0d97841d" />
+
+<br>
+
+<img width="1354" height="641" alt="image" src="https://github.com/user-attachments/assets/95a63fd3-a95e-4d6c-87da-c57911f973f7" />
+
+Now go to `s3` console and create 1 bucket. It's successfully created!
+
+<img width="1350" height="636" alt="image" src="https://github.com/user-attachments/assets/5ffa17f1-9c47-47bc-8756-a75a7f4da977" />
+
+<img width="1350" height="636" alt="image" src="https://github.com/user-attachments/assets/85c4bb34-fd50-491c-9990-0b29e3a8bce6" />
