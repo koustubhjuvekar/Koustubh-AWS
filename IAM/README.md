@@ -368,7 +368,7 @@ Now Policies have 2 types:
                | 
 Policies ------|
                |
-               +-----    2. Customer Managed Policies (Custom Managed Policies)
+               +----->   2. Customer Managed Policies (Custom Managed Policies)
 ```
 
 1️⃣ AWS Managed Policies
