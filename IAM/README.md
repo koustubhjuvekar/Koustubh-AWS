@@ -261,3 +261,29 @@ User Group: EC2_Team_Leaders
 User: Sachin.s3
 User Group: s3_Team_Leaders
 ```
+
+<img width="1352" height="587" alt="image" src="https://github.com/user-attachments/assets/09edc5be-0ca6-4213-a6c5-0a1468efbccc" />
+
+<img width="1352" height="544" alt="image" src="https://github.com/user-attachments/assets/859d318d-3421-4199-8202-74039f2bc2f6" />
+
+<img width="1351" height="589" alt="image" src="https://github.com/user-attachments/assets/ad02b774-4bdb-4802-8584-eb7c0c7994e9" />
+
+Create user!!!
+
+Similarly create user for s3
+_(Here, we are logging in every account for testing, in real life when ADMIN mail them details, employee logs in their system with credentials, and then changes password and use it every day.)_
+
+<img width="1348" height="586" alt="image" src="https://github.com/user-attachments/assets/5c4b4c7b-4479-43ae-a307-fbdf6ce4f603" />
+
+<img width="1352" height="541" alt="image" src="https://github.com/user-attachments/assets/a7daf006-8196-4fc0-8f8b-21baafa5f309" />
+
+Every time we create group later seperately like previous practicals. This time let's create here in process.<br>
+So in second page after above, click on <kbd>Create user</kbd>
+
+<img width="1366" height="592" alt="s3user" src="https://github.com/user-attachments/assets/8a6e38f5-d668-45eb-8f8d-f11bc204fb45" />
+
+Enter here group name `s3_Team_Leaders` .<br>
+He is Team leader for s3 team, so he needs to have full access of s3, so search for policy `AmazonS3FullAccess`.
+When we apply only this policy, Sachin will get full access of `s3 service` only, nothing else.
+
+
