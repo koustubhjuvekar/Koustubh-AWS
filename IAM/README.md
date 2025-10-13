@@ -359,4 +359,38 @@ Now go to `s3` console and create 1 bucket. It's successfully created!
 
 <img width="1350" height="636" alt="image" src="https://github.com/user-attachments/assets/5ffa17f1-9c47-47bc-8756-a75a7f4da977" />
 
-<img width="1350" height="636" alt="image" src="https://github.com/user-attachments/assets/85c4bb34-fd50-491c-9990-0b29e3a8bce6" />
+---
+
+Now
+
+1️⃣ AWS Managed Policies
+
+ -    These are predefined policies created and maintained by AWS.
+ -    They cover common use cases like AmazonS3FullAccess, AdministratorAccess, etc.
+ -    You can directly attach them to users, groups, or roles — no need to create your own.
+ -    Benefit: Automatically updated by AWS when new permissions or services are added.<br>
+Example:
+```
+Policy Name: AmazonEC2FullAccess
+Purpose: Grants full access to EC2 resources.
+```
+
+🟩 In short:
+
+Ready-made policies managed and updated by AWS for common tasks.
+<br>
+
+2️⃣ Customer Managed Policies (Custom Managed Policies)
+
+ -    These are policies you create and manage yourself in your AWS account.
+ -    Useful when AWS Managed Policies don’t exactly fit your organization’s needs.
+ -    You define permissions in JSON format and can reuse them across multiple users, groups, or roles.
+Example:
+```
+Policy Name: DevEC2LimitedAccess
+Purpose: Allows EC2 start/stop only for development instances.
+```
+🟩 In short:
+
+User-created policies tailored to specific needs — fully managed by you.
+<br>
