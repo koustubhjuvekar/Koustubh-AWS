@@ -403,3 +403,42 @@ Purpose: Allows EC2 start/stop only for development instances.
 User-created policies tailored to specific needs — fully managed by you.
 <br>
 
+
+**Task – Custom IAM Policy Example**
+
+-    Scenario:
+
+Virat (IAM user) — `Virat.ec2`
+
+Already has full EC2 access through the EC2FullAccess policy.
+
+Now we want to give him limited S3 access — only Read and List permissions.
+
+-    Steps:
+
+Create a custom IAM policy named `S3ReadListPolicy.`
+
+Define permissions:
+
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:ListBucket"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+```
+
+Attach this policy to `Virat.ec2.`
+
+Verify that he can read and list S3 objects but cannot delete or upload.
+
+---
+
