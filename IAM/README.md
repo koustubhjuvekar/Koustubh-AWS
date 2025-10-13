@@ -286,4 +286,63 @@ Enter here group name `s3_Team_Leaders` .<br>
 He is Team leader for s3 team, so he needs to have full access of s3, so search for policy `AmazonS3FullAccess`.
 When we apply only this policy, Sachin will get full access of `s3 service` only, nothing else.
 
+Click on <kbd>Create user group</kbd>
 
+Now select the group.
+
+<img width="1350" height="586" alt="image" src="https://github.com/user-attachments/assets/fbb3e32d-d9c6-4447-9db5-b84b45761cd8" />
+
+Create user!!!
+
+SO here 2 users created, just consider we mailed them their credentials.
+
+NOw for trial, for s3 we created user and user group too, in ongoing process, <br>
+but for ec2, let's create `EC2_Team_Leaders` group and assign `Virat.ec2` to it!
+
+<img width="1358" height="589" alt="image" src="https://github.com/user-attachments/assets/b2ae0438-9b46-4f1e-bfa5-6421c76ded1e" />
+
+Similary like Sachin, here Virat is Team leader for EC2 team, so he needs to have full access of EC2, so search for policy `AmazonEC2FullAccess`.
+When we apply only this policy, Virat will get full access of `EC2 service` only, nothing else.
+
+<img width="1351" height="588" alt="image" src="https://github.com/user-attachments/assets/b7118b91-52f9-4d8a-998f-60d2ebfc4c49" />
+
+<img width="1351" height="590" alt="image" src="https://github.com/user-attachments/assets/acbeec92-42ff-41c8-be22-2e34632adf5d" />
+
+Create user group!!
+
+Time for testing, so log out from ADMIN account and first let's try to log in as `Virat`.
+
+Remember, account id will be same for all the accounts, because it is root account or you can say company's account. All the accounts comes under this account. So for login link will be same.
+
+`https://494341429801.signin.aws.amazon.com/console`
+
+**EC2_Team_Leader**
+```
+username : Virat.ec2
+default password : Virat@123
+```
+<img width="1350" height="645" alt="image" src="https://github.com/user-attachments/assets/e56d870e-9713-48c3-a0ab-5e35ee53092e" />
+
+First time login, change password and click on next, get logged in successfully!
+
+<img width="1348" height="646" alt="image" src="https://github.com/user-attachments/assets/43a9f672-3c67-4739-b994-ac7e2d22463a" />
+
+<img width="1352" height="638" alt="image" src="https://github.com/user-attachments/assets/4f199dcb-8c9d-49fc-a964-afc993e93285" />
+
+see, in right up corner logged in as IAM user we created for EC2 i.e. `Virat.ec2`
+
+So we tried to launch an EC2 and it is launched successfully! All other operations related EC2, can be done!
+
+Let's go to s3 service, from `Virat.ec2` account to check whether is it available for Virat or not.
+
+So go to s3 console → tried to create bucket, you will see following error that is `access denied`
+
+<img width="1349" height="637" alt="image" src="https://github.com/user-attachments/assets/831aa718-450e-495b-b3d5-4ca0d9bd1b54" />
+
+<img width="1353" height="639" alt="image" src="https://github.com/user-attachments/assets/e65aba8c-674a-4bf3-bd99-ac1ecbec1641" />
+
+So here we proved that, Virat has only access to EC2 services, other accesses are denied, we did it using IAM.
+
+Log out from Virat's account and log in using `Sachin`'s Account. Create 1 s3 bucket. That will be successfully created. 
+
+Then go to EC2 from same login and try to launch EC2, you won't be able to launch EC2. Try other services also, you won't be able to use anything besides `s3` only.
