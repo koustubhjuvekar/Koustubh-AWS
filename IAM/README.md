@@ -246,3 +246,18 @@ Now you will be logged in to your AWS account as ADMIN, with full authorization.
 
 <img width="1350" height="641" alt="image" src="https://github.com/user-attachments/assets/0508f39e-7eed-41a5-9fa2-795e01404124" />
 
+Now as ADMIN we have full access!!
+
+So let's create 2 more users for different roles and give them only required access.
+
+So let's create 
+
+```
+1st user: (To handle EC2 only)
+User: Virat.ec2
+User Group: EC2_Team_Leaders
+
+2nd user: (To handle s3 only)
+User: Sachin.s3
+User Group: s3_Team_Leaders
+```
