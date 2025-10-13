@@ -361,7 +361,15 @@ Now go to `s3` console and create 1 bucket. It's successfully created!
 
 ---
 
-Now
+Now Policies have 2 types:
+
+```
+               +----->   1. AWS Managed Policies
+               | 
+Policies ------|
+               |
+               +-----    2. Customer Managed Policies (Custom Managed Policies)
+```
 
 1️⃣ AWS Managed Policies
 
