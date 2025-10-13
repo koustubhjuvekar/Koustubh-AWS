@@ -442,3 +442,14 @@ Verify that he can read and list S3 objects but cannot delete or upload.
 
 ---
 
+Explicit Deny overrides Allow (Allow + Deny ==> Deny ✅)
+→ If a user has both “Allow” and “Deny” for the same action, Deny always takes precedence.
+
+Full access overrides partial access (Full access + Half access ==> Full access ✅)
+→ If one policy grants full access and another grants limited access, the full access remains effective, unless a Deny exists.
+
+By default, all requests are denied. (Default all ==> Deny ❌)
+→ A user starts with no permissions. You must explicitly Allow access.
+
+Explicit Allow overrides default Deny
+→ Once you add an Allow in a policy, it grants access—unless a Deny explicitly blocks it.
