@@ -536,14 +536,14 @@ So here we created **Customer created policy** nad tested in the environment!!!
 
 Answer:     
 
--    You can use and apply the permission policies, using IAM. This is the best approach, because you don't need to apply individually, direct apply to group.
+-    You can use and apply the permission policies, using IAM. Just as we did before, only `READ` and `LIST` permissions. This is the best approach, because you don't need to apply individually, direct apply to group.
 
 -    Another way is to **_Turn on Termination protection in EC2_**. But it needs to set this individually per EC2. So if you have 1000 EC2s, it's practically impossible. So ABove given approach is correct and feasible.    
 
 
+--> Whatever policy you write, it should not go above size **64kb**
 
-
-
+vid 38.14
 
 <!---
 Create a custom IAM policy named `S3ReadListPolicy.`
