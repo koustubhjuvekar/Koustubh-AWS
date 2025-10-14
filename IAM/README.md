@@ -420,6 +420,45 @@ Already has full EC2 access through the EC2FullAccess policy.
 
 Now we want to give him limited S3 access — only Read and List permissions.
 
+let's write our own policy. 
+
+🟢 Points about Principal in IAM Policies
+
+-    Principal means "who" gets the permission.
+     -    Example: A specific user, role, or AWS account.
+
+-    In IAM policies, Principal is not used.
+-    Because IAM policies are identity-based — they’re directly attached to users, groups, or roles.
+So, AWS already knows who the permissions belong to.
+
+-    Resource-based policies (like S3, SNS, Lambda) must include Principal.
+-    Here you explicitly mention who can access the resource.
+
+**IAM identity-based policies** are the only policies **without Principal.**
+Permissions automatically apply to the identity they’re attached to.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 -    Steps:
 
 Create a custom IAM policy named `S3ReadListPolicy.`
