@@ -437,6 +437,87 @@ So, AWS already knows who the permissions belong to.
 **IAM identity-based policies** are the only policies **without Principal.**
 Permissions automatically apply to the identity they’re attached to.
 
+### -    Steps:
+
+1.    Click on <kbd>Create policy</kbd>
+
+2.    There will be 2 ways to create policies --> Visual and JSON
+
+3.    So Visual means by selecting options and JSON means writing in code. So let's try first using visual.
+
+4.    Now here we are creating policy for `s3` so select `s3` from **`Service`**
+
+  <img width="1350" height="639" alt="image" src="https://github.com/user-attachments/assets/cce8cec0-9457-4e21-813d-6d7f35666c5d" />
+
+5.    AWS has already given multiple actions lists there, select which actions being performed under your policy as you want.
+
+6.    Now here, we are going to write policy **ONLY TO READ AND LIST s3 BUCKET** and apply to `EC2_Team_Leaders` group.
+
+7.    So select `All list actions` and `All read actions`
+
+8.    Scroll down and go to **Resources**
+      -    Here you will see list of all resources which comes under s3 service. So if you want to specify specific resource then you can select specific one.
+      -    Here we select `All resources`
+
+ <img width="1351" height="639" alt="image" src="https://github.com/user-attachments/assets/4d19ba0a-ebaa-474f-a881-274b5b0c06e9" />
+
+9.    Click on <kbd>Next</kbd>.
+
+10.   Give Policy name and description
+
+      -    Policy name : `S3ReadListPolicy`
+      -    Description : `Just to READ and LIST from s3`
+   
+11.    Then **Create Policy**
+
+<img width="1350" height="638" alt="image" src="https://github.com/user-attachments/assets/7d2aa06c-d2f5-412e-b439-737b5883d937" />
+
+<img width="1350" height="594" alt="image" src="https://github.com/user-attachments/assets/b434df6c-5bea-4573-a909-6fabd0a30f3a" />
+
+
+12.    Now go to **User groups**
+
+13.    Click on `EC2_Team_Leaders` → Go to `Permissions`  →   Click on <kbd> Add Permissions </kbd>
+
+14.    Click on **Attach policies** = _Here we can attach already created policies. As in this case..._
+       -    There is another option **Create inline policies** = _Here we write policy directly in JSON and attach on the spot._
+   
+<img width="1350" height="639" alt="image" src="https://github.com/user-attachments/assets/e21633bf-72ff-4f30-9f80-6405262c8495" />
+
+15.    Search few keywords of your created policies, so you can find it. Here `S3ReadListPolicy`
+   
+<img width="1366" height="641" alt="image" src="https://github.com/user-attachments/assets/88511afc-584f-459f-9806-addd2867deff" />
+
+16.    Select `S3ReadListPolicy` from list.
+
+17.    Now click on <kbd>**Attach policies**</kbd>
+
+Now you can see, for user group `EC2_Team_Leaders` will have 2 **Permission policies**
+
+1.    `AmazonEC2FullAccess` → IAM Permission with defaul
+2.    `S3ReadListPolicy` → Customer created policy, that we just created and attached.
+
+### _Time for testing..._
+
+Log out from `Koustubh-admin` account and let's login using `Virat.ec2` account.
+
+Now go to `s3`, you would see **List of buckets and other services there**
+
+If you remember, previously it was not displayed for `Virat.ec2` because he had no permissions, but as we updated custome policies, bucket is visible.
+
+<img width="1366" height="639" alt="image" src="https://github.com/user-attachments/assets/5dc38d96-ae0f-4d61-97ea-522ca8063b8d" />
+
+Now again, you can only `READ` and `LIST` resources or buckets or objects in the bucket.  _**You Can't create bucket or upload object in the bucket.**_
+
+It will deny access! What to check? See this...
+
+<img width="1352" height="641" alt="image" src="https://github.com/user-attachments/assets/3e3f09d4-6f99-4f22-9d2f-4413ed5edc56" />
+
+If you go inside the bucket here `trial-bucket-koustubh` and try to upload an image (Object) - It will also deny access...
+
+<img width="1352" height="639" alt="image" src="https://github.com/user-attachments/assets/ccd98e14-b383-4275-a56d-06af595f3a76" />
+
+So here we created **Customer created policy** nad tested in the environment!!!
 
 
 
@@ -447,19 +528,6 @@ Permissions automatically apply to the identity they’re attached to.
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
--    Steps:
 
 Create a custom IAM policy named `S3ReadListPolicy.`
 
