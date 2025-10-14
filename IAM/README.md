@@ -534,14 +534,18 @@ So here we created **Customer created policy** nad tested in the environment!!!
 
 ### Question: If there is a need that employees/users under `s3_Team_Leaders` need EC2 services for some reason. But they should not be able to **Terminate or edit** EC2 servers. How can you protect this?
 
+Answer:     
+
+-    You can use and apply the permission policies, using IAM. This is the best approach, because you don't need to apply individually, direct apply to group.
+
+-    Another way is to **_Turn on Termination protection in EC2_**. But it needs to set this individually per EC2. So if you have 1000 EC2s, it's practically impossible. So ABove given approach is correct and feasible.    
 
 
 
 
 
 
-
-
+<!---
 Create a custom IAM policy named `S3ReadListPolicy.`
 
 Define permissions:
@@ -566,7 +570,7 @@ Attach this policy to `Virat.ec2.`
 
 Verify that he can read and list S3 objects but cannot delete or upload.
 
----
+--- -->
 
 Explicit Deny overrides Allow (Allow + Deny ==> Deny ✅)
 → If a user has both “Allow” and “Deny” for the same action, Deny always takes precedence.
