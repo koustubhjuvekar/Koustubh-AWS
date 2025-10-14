@@ -388,6 +388,10 @@ Purpose: Grants full access to EC2 resources.
 Ready-made policies managed and updated by AWS for common tasks.
 <br>
 
+<img width="1352" height="639" alt="image" src="https://github.com/user-attachments/assets/eadfc2cf-16d9-4c0b-9e56-6f09eb302ad5" />
+<br>
+
+
 2️⃣ Customer Managed Policies (Custom Managed Policies)
 
  -    These are policies you create and manage yourself in your AWS account.
@@ -403,8 +407,10 @@ Purpose: Allows EC2 start/stop only for development instances.
 User-created policies tailored to specific needs — fully managed by you.
 <br>
 
+<img width="1366" height="642" alt="image" src="https://github.com/user-attachments/assets/03665538-bf20-4bde-9f71-a472155f663e" />
 
-**Task – Custom IAM Policy Example**
+
+### **Task – Custom IAM Policy Example**
 
 -    Scenario:
 
