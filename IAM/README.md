@@ -530,7 +530,9 @@ If you go inside the bucket here `trial-bucket-koustubh` and try to upload an im
 
 So here we created **Customer created policy** nad tested in the environment!!!
 
+---
 
+### Question: If there is a need that employees/users under `s3_Team_Leaders` need EC2 services for some reason. But they should not be able to **Terminate or edit** EC2 servers. How can you protect this?
 
 
 
