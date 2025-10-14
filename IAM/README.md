@@ -408,7 +408,7 @@ User-created policies tailored to specific needs — fully managed by you.
 <br>
 
 <img width="1366" height="642" alt="image" src="https://github.com/user-attachments/assets/03665538-bf20-4bde-9f71-a472155f663e" />
-
+<br>
 
 ### **Task – Custom IAM Policy Example**
 
@@ -447,7 +447,8 @@ Permissions automatically apply to the identity they’re attached to.
 
 4.    Now here we are creating policy for `s3` so select `s3` from **`Service`**
 
-  <img width="1350" height="639" alt="image" src="https://github.com/user-attachments/assets/cce8cec0-9457-4e21-813d-6d7f35666c5d" />
+<img width="1350" height="639" alt="image" src="https://github.com/user-attachments/assets/cce8cec0-9457-4e21-813d-6d7f35666c5d" />
+<br>
 
 5.    AWS has already given multiple actions lists there, select which actions being performed under your policy as you want.
 
@@ -459,7 +460,8 @@ Permissions automatically apply to the identity they’re attached to.
       -    Here you will see list of all resources which comes under s3 service. So if you want to specify specific resource then you can select specific one.
       -    Here we select `All resources`
 
- <img width="1351" height="639" alt="image" src="https://github.com/user-attachments/assets/4d19ba0a-ebaa-474f-a881-274b5b0c06e9" />
+<img width="1351" height="639" alt="image" src="https://github.com/user-attachments/assets/4d19ba0a-ebaa-474f-a881-274b5b0c06e9" />
+<br>
 
 9.    Click on <kbd>Next</kbd>.
 
@@ -471,9 +473,10 @@ Permissions automatically apply to the identity they’re attached to.
 11.    Then **Create Policy**
 
 <img width="1350" height="638" alt="image" src="https://github.com/user-attachments/assets/7d2aa06c-d2f5-412e-b439-737b5883d937" />
+<br>
 
 <img width="1350" height="594" alt="image" src="https://github.com/user-attachments/assets/b434df6c-5bea-4573-a909-6fabd0a30f3a" />
-
+<br>
 
 12.    Now go to **User groups**
 
@@ -483,10 +486,12 @@ Permissions automatically apply to the identity they’re attached to.
        -    There is another option **Create inline policies** = _Here we write policy directly in JSON and attach on the spot._
    
 <img width="1350" height="639" alt="image" src="https://github.com/user-attachments/assets/e21633bf-72ff-4f30-9f80-6405262c8495" />
+<br>
 
 15.    Search few keywords of your created policies, so you can find it. Here `S3ReadListPolicy`
    
 <img width="1366" height="641" alt="image" src="https://github.com/user-attachments/assets/88511afc-584f-459f-9806-addd2867deff" />
+<br>
 
 16.    Select `S3ReadListPolicy` from list.
 
@@ -494,8 +499,11 @@ Permissions automatically apply to the identity they’re attached to.
 
 Now you can see, for user group `EC2_Team_Leaders` will have 2 **Permission policies**
 
-1.    `AmazonEC2FullAccess` → IAM Permission with defaul
+1.    `AmazonEC2FullAccess` → IAM Permission with default
 2.    `S3ReadListPolicy` → Customer created policy, that we just created and attached.
+
+<img width="1351" height="638" alt="image" src="https://github.com/user-attachments/assets/2b266b64-bf15-477f-8bda-51d779bef2fa" />
+<br>
 
 ### _Time for testing..._
 
@@ -506,16 +514,19 @@ Now go to `s3`, you would see **List of buckets and other services there**
 If you remember, previously it was not displayed for `Virat.ec2` because he had no permissions, but as we updated custome policies, bucket is visible.
 
 <img width="1366" height="639" alt="image" src="https://github.com/user-attachments/assets/5dc38d96-ae0f-4d61-97ea-522ca8063b8d" />
+<br>
 
 Now again, you can only `READ` and `LIST` resources or buckets or objects in the bucket.  _**You Can't create bucket or upload object in the bucket.**_
 
-It will deny access! What to check? See this...
+It will deny access! Want to check? See this...
 
 <img width="1352" height="641" alt="image" src="https://github.com/user-attachments/assets/3e3f09d4-6f99-4f22-9d2f-4413ed5edc56" />
+<br>
 
 If you go inside the bucket here `trial-bucket-koustubh` and try to upload an image (Object) - It will also deny access...
 
 <img width="1352" height="639" alt="image" src="https://github.com/user-attachments/assets/ccd98e14-b383-4275-a56d-06af595f3a76" />
+<br>
 
 So here we created **Customer created policy** nad tested in the environment!!!
 
