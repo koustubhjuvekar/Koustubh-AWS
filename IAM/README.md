@@ -552,10 +552,10 @@ If most actions are allowed and only a few need to be restricted, it’s better 
 In IAM, everything is denied by default, and explicit Deny always overrides any Allow.
 So by writing a small Deny policy, you can stay within the 64 KB limit and still enforce security effectively.
 
-Example:
-Instead of writing 500 Allow actions and 5 Deny actions,
-you can just write a policy with those 5 Deny actions —
-all other permissions remain allowed by the broader (existing) policy.
+**Example:**
+-    Instead of writing 500 Allow actions and 5 Deny actions,
+-    you can just write a policy with those 5 Deny actions —
+-    all other permissions remain allowed by the broader (existing) policy.
 
 <!---
 Create a custom IAM policy named `S3ReadListPolicy.`
