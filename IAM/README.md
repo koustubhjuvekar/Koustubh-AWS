@@ -560,29 +560,33 @@ So by writing a small Deny policy, you can stay within the 64 KB limit and still
 
 ### `ROLES`
 
+-    ROLE is used to avoid secret key and access key.
+-    Used for temporary access.
+
 🎭 Who Can Use IAM Roles?
+
 🧑‍💻 1. Human Users (Federated or Temporary Access)
 
-Roles can be given to users who sign in through identity providers (IdPs) like:
-
-AWS SSO, Google, or Active Directory.
+-    Roles can be given to users who sign in through identity providers (IdPs) like:
+-    AWS SSO, Google, or Active Directory.
 
 These users assume roles temporarily — no need for IAM user credentials.
-🔹 Use case: An employee from another organization accesses your AWS account via a role.
+-    Use case: An employee from another organization accesses your AWS account via a role.
+
 
 🤖 2. Machines (AWS Services)
 
-AWS services like EC2, Lambda, ECS, or CodeBuild can assume roles.
+-    AWS services like EC2, Lambda, ECS, or CodeBuild can assume roles.
 
 This allows them to securely call other AWS services without storing keys.
-🔹 Use case: An EC2 instance uploads data to S3 using its attached IAM Role.
+-    Use case: An EC2 instance uploads data to S3 using its attached IAM Role.
 
 💻 3. Programs / Applications
 
-External apps or scripts can assume roles using AWS STS (Security Token Service).
+-    External apps or scripts can assume roles using AWS STS (Security Token Service).
 
 They get temporary credentials (AccessKey, SecretKey, SessionToken).
-🔹 Use case: A Python script running on-premises assumes a role to access AWS.
+-    Use case: A Python script running on-premises assumes a role to access AWS.
 
 -    ROLE created for default 1 hr, maximum 12hrs from AWS site. If you want more then using coding you can increase upto for 36hrs.
 -    Can be applied to system, human and application
