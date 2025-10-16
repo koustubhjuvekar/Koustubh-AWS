@@ -575,6 +575,7 @@ Explicit Allow overrides default Deny
 
 -    ROLE is used to avoid secret key and access key.
 -    Used for temporary access.
+-    When we work in AWS, even though we do not create role purposefully, AWS create few roles in backend.
 
 🎭 Who Can Use IAM Roles?
 
