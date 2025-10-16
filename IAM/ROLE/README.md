@@ -87,8 +87,19 @@ Create an **IAM user** `EllysePerry` that is allowed to call `sts:AssumeRole` on
 ---
 
 ### 📸 Screenshot #1  
-- Capture the **final “Success” page** showing the new user details.  
+
 - Copy and save the **User ARN** for reference.
 
 <img width="1351" height="638" alt="image" src="https://github.com/user-attachments/assets/764f153d-3058-4a68-ab76-2828049ae9fa" />
 
+in account A
+
+<img width="1350" height="640" alt="image" src="https://github.com/user-attachments/assets/49874b18-9cce-46e3-bd1a-2ecba6c56422" />
+
+<img width="1351" height="638" alt="image" src="https://github.com/user-attachments/assets/6de53335-5f2b-49c9-881b-526fd2e98d06" />
+
+or
+
+<img width="1348" height="641" alt="image" src="https://github.com/user-attachments/assets/a9b153c4-cd95-4791-ae6c-c3f33cd10a68" />
+
+<img width="1349" height="642" alt="image" src="https://github.com/user-attachments/assets/9cd8b5b1-11dc-46e9-9205-1d3691c3d85b" />
