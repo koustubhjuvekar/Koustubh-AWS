@@ -58,6 +58,37 @@
   -  Role session expiration
   -  Least privilege principle
 
-    
+###**Account B - IAM User - EllysePerry**
+
+Root user created here an IAM user `EllysePerry`
+## 🅰️ Steps in Ellyse’s Account (Account B) — Do This First
+
+### 🎯 Goal  
+Create an **IAM user** `EllysePerry` that is allowed to call `sts:AssumeRole` on your role.
+
+---
+
+### 🧭 Step 1 — Sign in
+- Sign in to **Account B (Ellyse’s admin)**.
+
+---
+
+### 🧩 Step 2 — Create IAM User
+- **Console Path:** `IAM → Users → Add users`
+- **Username:** `EllysePerry`
+- **Access type:**  
+  - ✅ *AWS Management Console access*  
+  - *(Optionally)* *Programmatic access* — if she will use CLI.
+- **Password setup:**  
+  - Choose *Auto-generate* or *Custom password*  
+  - (Optional) Check **User must create a new password at next sign-in**.
+- Click **Create user**
+
+---
+
+### 📸 Screenshot #1  
+- Capture the **final “Success” page** showing the new user details.  
+- Copy and save the **User ARN** for reference.
+
 <img width="1351" height="638" alt="image" src="https://github.com/user-attachments/assets/764f153d-3058-4a68-ab76-2828049ae9fa" />
 
