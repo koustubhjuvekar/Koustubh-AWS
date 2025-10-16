@@ -557,6 +557,19 @@ So by writing a small Deny policy, you can stay within the 64 KB limit and still
 -    you can just write a policy with those 5 Deny actions —
 -    all other permissions remain allowed by the broader (existing) policy.
 
+Explicit Deny overrides Allow (Allow + Deny ==> Deny ✅)
+→ If a user has both “Allow” and “Deny” for the same action, Deny always takes precedence.
+
+Full access overrides partial access (Full access + Half access ==> Full access ✅)
+→ If one policy grants full access and another grants limited access, the full access remains effective, unless a Deny exists.
+
+By default, all requests are denied. (Default all ==> Deny ❌)
+→ A user starts with no permissions. You must explicitly Allow access.
+
+Explicit Allow overrides default Deny
+→ Once you add an Allow in a policy, it grants access—unless a Deny explicitly blocks it.
+
+---
 
 ### `ROLES`
 
@@ -621,41 +634,5 @@ You can get details like:
 
 -    Helps EC2 authenticate securely to AWS services without using access keys.
 
-<!---
-Create a custom IAM policy named `S3ReadListPolicy.`
 
-Define permissions:
 
-```
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "s3:GetObject",
-        "s3:ListBucket"
-      ],
-      "Resource": "*"
-    }
-  ]
-}
-```
-
-Attach this policy to `Virat.ec2.`
-
-Verify that he can read and list S3 objects but cannot delete or upload.
-
---- -->
-
-Explicit Deny overrides Allow (Allow + Deny ==> Deny ✅)
-→ If a user has both “Allow” and “Deny” for the same action, Deny always takes precedence.
-
-Full access overrides partial access (Full access + Half access ==> Full access ✅)
-→ If one policy grants full access and another grants limited access, the full access remains effective, unless a Deny exists.
-
-By default, all requests are denied. (Default all ==> Deny ❌)
-→ A user starts with no permissions. You must explicitly Allow access.
-
-Explicit Allow overrides default Deny
-→ Once you add an Allow in a policy, it grants access—unless a Deny explicitly blocks it.
