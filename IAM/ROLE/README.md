@@ -38,15 +38,130 @@ So log in using `John's` credentials
 
 <img width="1351" height="726" alt="image" src="https://github.com/user-attachments/assets/1f45a649-7845-450b-812c-530b753b6e0c" />
 
+So go to `s3` and you can see error that permission denied.
+
+<img width="1366" height="726" alt="image" src="https://github.com/user-attachments/assets/f0e83a19-1a01-48c3-9726-63e412bb7115" />
+
+So now let's go back to ADMIN account and create role for `John`. Then ask `John` to **ASSUME** the role, means use that role and perform actions.
+
+Go to `Roles` →  Click on <kbd>Create role</kbd>  → Select `AWS Account` → This account(494341429801) _(We created an account for user John under same AWS account. Suppose under a company's AWS account. )_
+
+<img width="1349" height="639" alt="image" src="https://github.com/user-attachments/assets/b4a48ad6-1421-44ee-82d2-a4958be1935b" />
+<br>
+
+ → Select permission `AmazonS3FullAccess`
+
+<img width="1366" height="639" alt="image" src="https://github.com/user-attachments/assets/a93490c3-a45a-4c59-926a-5b988658385c" />
+
+ → Give a
+ 
+   -  Role name : `s3-Full-Access-Role`
+   -  Remaining keep as it is, create role!
+   
+<img width="1349" height="640" alt="image" src="https://github.com/user-attachments/assets/75dfbe9c-d999-44b3-ac80-ff76bb9f77fa" />
+<br>
+
+Now go to **Roles** --> Make sure there is role created `s3-Full-Access-Role`
+
+Now we have to assume this role to John, that means assign to John and John has to assume this role, we can say.
+
+So go to IAM Console --> Click on **Users** --> Click on `John`--> Add Permissions --> Create inline policy --> Click on JSON
+
+Now stay here..., 
+
+in new window go to your IAM console --> Roles --> click `s3-Full-Access-Role` --> copy ARN of role
+
+<img width="1350" height="638" alt="image" src="https://github.com/user-attachments/assets/f0d7f227-9cd0-4248-8672-264428c8d98d" />
+
+Now come back to **attach policy page** and add that ARN in front of Resource like,
+
+`"Resource": "arn:aws:iam::494341429801:role/s3-Full-Access-Role"`
+
+and 
+
+`"Action": "sts:AssumeRole",`
+
+So it will be like, 
+
+```JSON
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Sid": "Statement1",
+			"Effect": "Allow",
+			"Action": "sts:AssumeRole",
+			"Resource": "arn:aws:iam::494341429801:role/s3-Full-Access-Role"
+		}
+	]
+}
+```
+
+Now name the policy and create policy!
+
+-  Name : `s3-Full-Access-Policy`
+
+Now here we attached **Role** to `John`.
+
+<img width="1352" height="639" alt="image" src="https://github.com/user-attachments/assets/b45ce3ac-891f-40dc-9345-254d4613d380" />
+
+Now `John` has to accept it, means `Assume` it.
+
+Now go to `John` login. Refresh it, still John has no access! So click on `John` profile name on the right corner.
+
+Click on `Switch role`
+
+<img width="1366" height="727" alt="image" src="https://github.com/user-attachments/assets/8489f107-d4b3-4d50-8212-cae646328fad" />
+
+Now you will see this window, where you have to fill details
+
+-  Account ID : _(AWS Account ID of ROOT or Main AWS Account who assigned you a role)_ = `494341429801`
+-  IAM role name : _(Role name given to you)_ = `s3-Full-Access-Role`
+-  Remaining settings are optional
+
+-  Then click on **Switch Role**
+-  Then you will be logged in as a `John` and will be working in Root or Admin AWS account for given particular time and as per policy `John` has full acces to **Only s3 services**
+
+<img width="1366" height="728" alt="image" src="https://github.com/user-attachments/assets/cc2706be-5102-46d7-ba91-418dd39869a7" />
+<br>
 
 
+Now Till `click on Switch Role`, this is 1 way to switch role 
 
+OR
 
+Another way is Got to your admin account
 
+Go to Roles --> Click on your created role `s3-Full-Access-Role` 
 
+There will be a link to `switch role` you can share it with John, it's just prefilled information. In last way we entered Account ID and ROle name manually, here it will be prefilled.
 
+`https://signin.aws.amazon.com/switchrole?roleName=s3-Full-Access-Role&account=494341429801`
 
+Paste this link for John's login in his window, you will see like this ...
 
+<img width="1366" height="727" alt="image" src="https://github.com/user-attachments/assets/1df73029-8300-4b50-ba95-f57eb3a4e34c" />
+
+Remaining options are optional, but I select it as 
+
+-  Name : `s3-man`
+-  Display color : `Red`
+
+Click on **Switch role** 
+
+<img width="1366" height="728" alt="image" src="https://github.com/user-attachments/assets/ab2bae76-5542-4fe5-bf78-37e1437a1284" />
+
+Now you can see in the right corner display name as `s3-man`, if you click on it you can see
+
+-  Currently active as `s3-Full-Access-Role`
+-  Account ID `494341429801` _(here account ID will be same because ROOT ADMIN and even John is under 1 AWS account)_
+
+<img width="1366" height="730" alt="image" src="https://github.com/user-attachments/assets/9e6dfd24-b432-418a-8b19-885d53b6dc28" />
+<br>
+
+Now in `John's` login, go to `s3`, you can see that you got s3 access fully!
+
+<img width="1366" height="635" alt="image" src="https://github.com/user-attachments/assets/6664f9f9-9914-43fd-8746-49f38cfba6de" />
 
 
 
