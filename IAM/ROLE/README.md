@@ -199,7 +199,7 @@ If you want to set it more that 12hrs, then you have to set it by coding and **y
 
 ---
 
-###Revoke sessions
+### Revoke sessions
 
 As an ADMIN if you have assigned role to `John` and given any duration. And you think that you have to stop  John working on that role or work and for any reason you want to stop the working under this role, then there is an option **`Revoke sessions`** 
 
