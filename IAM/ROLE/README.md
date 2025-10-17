@@ -1,4 +1,4 @@
-### `ASSUME ROLE - User from same AWS account - ROle assign`
+# `ASSUME ROLE - User from same AWS account - ROle assign`
 
 <img width="1076" height="728" alt="IAM Test user" src="https://github.com/user-attachments/assets/632c14a2-bf0b-49a2-8b77-b55af85f0263" />
 
@@ -207,3 +207,18 @@ As an ADMIN if you have assigned role to `John` and given any duration. And you 
 
 When you click on  <kbd>Revoke active sessions</kbd>, all the active session will be expire and access will be denied to all who have assumed this role, in this case it's `John`.
 
+---
+
+### `switch back`
+
+This is for `John`.
+
+If his work is done before Role allowed duration or for any reason he wants to stop working and exit from the role.
+
+Then click on `John` profile name in the right corner or on `s3-man` display name if you set.
+
+Then there is a option <kbd>**Switch back**</kbd>. If `John` click on that option, he will exit from Role `s3-Full-Access-Role` and go back to normal login. i.e like a simple user before assigning role, here!
+
+<img width="1366" height="726" alt="image" src="https://github.com/user-attachments/assets/c88c620f-7efa-4fc0-b0ef-84d0173b273f" />
+
+---
