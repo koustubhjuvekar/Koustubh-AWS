@@ -163,8 +163,47 @@ Now in `John's` login, go to `s3`, you can see that you got s3 access fully!
 
 <img width="1366" height="635" alt="image" src="https://github.com/user-attachments/assets/6664f9f9-9914-43fd-8746-49f38cfba6de" />
 
+Now to test, create a bucket here, I created as `role-access-check-bucket-by-john`
 
+<img width="1366" height="724" alt="image" src="https://github.com/user-attachments/assets/30262c6c-806f-4fa8-9430-b11966141890" />
+<br>
 
+I tried to upload `mypic` a picture as an object in the bucket, it's uploaded successfully!
 
+<img width="1366" height="726" alt="image" src="https://github.com/user-attachments/assets/641b35de-f536-4166-8294-09f0890eacfb" />
 
+So now John can do anything related to only s3, but for only `1hr`. After `1hr` that Role will be expired and John will loose access to ROOT or ADMIN AWS account and all the services assigned to him, i.e. `s3` here.
+
+---
+
+### How 1hr?
+
+So let's go back to **`ADMIN`** Account.
+
+-	Go to Roles --> `s3-Full-Access-Role`
+-	You can see there **Maximum session duration** - `1 hour`
+
+<img width="1352" height="645" alt="image" src="https://github.com/user-attachments/assets/14bd0379-d2e3-4073-a0eb-a715d1029289" />
+
+If you want to change duration then --> Click on **Edit**
+
+Now you will see window to change the `Session duration` of that role. 
+
+As we know we can set maximum 12hrs by clicking in the list, 1-12 hrs. OR any time between this range.<br>
+-	For example: if you want to set 2.5 hrs then set it in seconds `9000`
+
+<img width="1366" height="639" alt="image" src="https://github.com/user-attachments/assets/b6b3a6ce-6935-4404-b4e3-5067312b51d6" />
+<br>
+
+If you want to set it more that 12hrs, then you have to set it by coding and **you can set that up to maximum 36hrs.**
+
+---
+
+###Revoke sessions
+
+As an ADMIN if you have assigned role to `John` and given any duration. And you think that you have to stop  John working on that role or work and for any reason you want to stop the working under this role, then there is an option **`Revoke sessions`** 
+
+<img width="1366" height="643" alt="image" src="https://github.com/user-attachments/assets/feae8b8e-5758-46ff-9a30-dea8964fd48c" />
+
+When you click on  <kbd>Revoke active sessions</kbd>, all the active session will be expire and access will be denied to all who have assumed this role, in this case it's `John`.
 
