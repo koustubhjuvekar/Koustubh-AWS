@@ -258,3 +258,22 @@ but they’ll expire automatically when their STS token ends (within 1 hour max)
     ]
 }
 ```
+
+---
+
+###🧩 Q1. Why after 1 hour John was still able to assume or use the role even though role session duration was 1 hour?
+
+Answer (Part 1 — Reason):
+
+-	The “Maximum session duration” in AWS only limits how long a single STS session lasts (e.g., 1 hour).
+-	It doesn’t stop the user from re-assuming the role again after expiry.
+-	If the trust policy is open (e.g., "Principal": {"AWS": "arn:aws:iam::<account-id>:root"}), John can keep assuming the role repeatedly.
+-	AWS doesn’t automatically revoke or block new AssumeRole calls after 1 hour.
+
+Answer (Part 2 — Fix):
+
+-	To enforce strict 1-hour total access:
+
+ 	-	Add a time-based condition in the trust policy (e.g., DateLessThan with UTC time).
+ 	-	Optionally remove John’s sts:AssumeRole permission or revoke active sessions after 1 hour.
+  	-	Keep maximum session duration = 1 hour to limit individual token validity.
