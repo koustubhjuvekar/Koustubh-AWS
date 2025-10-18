@@ -117,10 +117,10 @@ To make sure access is valid only for 5 hours from now (e.g., till `2025-10-18T1
 ```json
 "Condition": {
   "DateGreaterThan": {
-    "aws:CurrentTime": "2025-10-18T15:35:00Z"
+    "aws:CurrentTime": "2025-10-18T16:00:00Z"
   },
   "DateLessThan": {
-    "aws:CurrentTime": "2025-10-18T20:35:00Z"
+    "aws:CurrentTime": "2025-10-18T21:00:00Z"
   }
 }
 
@@ -277,3 +277,26 @@ So here we set!
 ### Therefore, after 02:30 IST, Monica’s session will automatically expire, and she will lose access to StarCloud’s AWS account — ensuring temporary, secure, and time-bound access for external vendor users.
 
 ## `Testing`
+
+See when you log in with Monica's account, i.e when Monica will log in to her account all access is denied, even before assuming role
+
+<img width="1366" height="723" alt="image" src="https://github.com/user-attachments/assets/779c00c4-8cdb-4833-85e2-837d933aa181" />
+
+As a Monica...
+
+Now it's 21:29IST, let's try to assume role using link or filling details.
+
+You can see access denied, she is not able to ASSUME role. WHY? Because we set starting time 21:30IST (2025-10-18T16:00:00Z).
+
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/8f772c6d-1289-4968-922b-cf256ae1fa7d" />
+<br>
+
+Now after 21:30 IST (2025-10-18T16:00:00Z), let's try again to ASSUME role.
+
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/83e91db7-78c9-43f5-a9a0-01f72b77daca" />
+<br>
+
+### See, Monica's 
+<img width="1366" height="768" alt="Developer Monica" src="https://github.com/user-attachments/assets/578a92f6-a298-4f5a-8550-85b0869e0992" />
+<br>
+
