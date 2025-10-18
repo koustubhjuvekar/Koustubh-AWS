@@ -108,7 +108,7 @@ For Monica, The role can only be assumed between 16:00Z and 21:00Z (UTC)
 i.e. 21:30 IST – 02:30 IST.
 After that time window, AWS STS will automatically deny the AssumeRole request.
 
-Click on <kbd> Update policy <kbd>
+Click on <kbd> Update policy</kbd>
 <br>
 
 _#### 5. (Optional) Add Condition for Expiry Based on Date/Time
@@ -235,9 +235,19 @@ This ensures **temporary access** — even if Monica tries to re-assume the role
 <br>
 
 <img width="1351" height="600" alt="image" src="https://github.com/user-attachments/assets/b5fb694c-db27-4b56-8682-d612868981c2" />
+<br>
 
 #### 2. Attach Policy to Allow AssumeRole
-Attach a **custom policy** allowing `sts:AssumeRole` on your role ARN:
+
+Here Monica has to assume that role.
+
+So go to IAM → Users → `Monica.developer` → Click on `Permissions` → Add Permissions → Create inline policy → JSON
+
+Attach a **custom policy** as given below, allowing `sts:AssumeRole` on your(Monica's) role ARN:
+
+Now we noted Role ARN in ADMIN Account of StarCloud Company, paste that here for **Resource**
+
+-  Resource - `arn:aws:iam::494341429801:role/WeDevelopMonicaRole`
 
 ```json
 {
@@ -246,8 +256,24 @@ Attach a **custom policy** allowing `sts:AssumeRole` on your role ARN:
         {
             "Effect": "Allow",
             "Action": "sts:AssumeRole",
-            "Resource": "arn:aws:iam::111122223333:role/WeDevelopMonicaRole"
+            "Resource": "arn:aws:iam::494341429801:role/WeDevelopMonicaRole"
         }
     ]
 }
 ```
+<img width="1366" height="725" alt="image" src="https://github.com/user-attachments/assets/ebda7aa2-6685-4c02-b208-311366b3014a" />
+<br>
+
+Give suitable policy name such as `DeveloperPolicyForStarCloud`
+
+Click on <kbd> Create Policy </kbd>
+
+So here we set!
+
+### Monica will assume the cross-account IAM role after 21:30 IST to work in StarCloud’s (my) AWS account. Once she successfully assumes the role, she will temporarily gain the permissions defined in the role’s policy, allowing her to launch EC2 instances, develop the application, and use S3 as required.
+
+### The role session is limited to 5 hours, which is the maximum session duration configured in the role settings, and we’ve also enforced a time-based condition (aws:CurrentTime) in the trust policy to automatically expire access after 5 hours.
+
+### Therefore, after 02:30 IST, Monica’s session will automatically expire, and she will lose access to StarCloud’s AWS account — ensuring temporary, secure, and time-bound access for external vendor users.
+
+## `Testing`
