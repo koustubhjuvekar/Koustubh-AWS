@@ -1,5 +1,6 @@
 # `ASSUME ROLE - User from same AWS account - ROle assign`
 
+
 <img width="1076" height="728" alt="IAM Test user" src="https://github.com/user-attachments/assets/632c14a2-bf0b-49a2-8b77-b55af85f0263" />
 
 Let's create 1 Test-user as `**John (Test-user)**
@@ -222,3 +223,38 @@ Then there is a option <kbd>**Switch back**</kbd>. If `John` click on that optio
 <img width="1366" height="726" alt="image" src="https://github.com/user-attachments/assets/c88c620f-7efa-4fc0-b0ef-84d0173b273f" />
 
 ---
+
+
+Now after 1hr `John` will be restricted for access to s3, that means using this role. 
+
+But if he continues and not leaving, or if he is able to ASSUME role again and again, then Log in ADMIN and check policy, add condition there.
+
+Set perticular time and date, (UTC) and save policy.
+
+-	Any new “**Switch Role**” attempts will fail immediately.
+-	Existing sessions already assumed will not be forcibly terminated,
+but they’ll expire automatically when their STS token ends (within 1 hour max).
+
+👉 So if you want instant cutoff, also:
+-	Go to IAM → Users → John → Revoke active sessions
+-	or delete his sts:AssumeRole permission in his account.
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::494341429801:root"
+            },
+            "Action": "sts:AssumeRole",
+            "Condition": {
+                "DateLessThan": {
+                    "aws:CurrentTime": "2025-10-18T06:23:00Z"
+                }
+            }
+        }
+    ]
+}
+```
