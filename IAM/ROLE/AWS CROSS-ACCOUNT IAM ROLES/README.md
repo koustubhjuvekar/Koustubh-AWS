@@ -78,39 +78,59 @@ Under **Maximum session duration**, choose **5 hours (18,000 seconds)**.
   "Version": "2012-10-17",
   "Statement": [
     {
+      "Sid": "TrustWeDevelopMonica",
       "Effect": "Allow",
       "Principal": {
         "AWS": "arn:aws:iam::982081044537:user/Monica.developer"
       },
       "Action": "sts:AssumeRole",
       "Condition": {
+        "DateGreaterThan": {
+            "aws:CurrentTime": "2025-10-18T16:00:00Z"
+            },
         "DateLessThan": {
-          "aws:CurrentTime": "2025-10-18T17:00:00Z"
+            "aws:CurrentTime": "2025-10-18T21:00:00Z"
+            }
         }
-      }
     }
   ]
 }
 
+
 ```
 
+<img width="1351" height="640" alt="image" src="https://github.com/user-attachments/assets/82e99ac3-ebc0-47de-a871-94b7c5834c27" />
+<br>
 
-#### 5. (Optional) Add Condition for Expiry Based on Date/Time
-To make sure access is valid only for 5 hours from now (e.g., till `2025-10-18T17:00:00Z`):
+So this means,
+
+For Monica, The role can only be assumed between 16:00Z and 21:00Z (UTC)
+i.e. 21:30 IST – 02:30 IST.
+After that time window, AWS STS will automatically deny the AssumeRole request.
+
+Click on <kbd> Update policy <kbd>
+<br>
+
+_#### 5. (Optional) Add Condition for Expiry Based on Date/Time
+To make sure access is valid only for 5 hours from now (e.g., till `2025-10-18T17:00:00Z`):_
 
 ```json
 "Condition": {
+  "DateGreaterThan": {
+    "aws:CurrentTime": "2025-10-18T15:35:00Z"
+  },
   "DateLessThan": {
-      "aws:CurrentTime": "2025-10-18T17:00:00Z"
+    "aws:CurrentTime": "2025-10-18T20:35:00Z"
   }
 }
+
 ```
 
 This ensures that after this time, even if Monica re-assumes the role, it won’t work.
 
 ---
 
-## 🧩 Trust Policy in IAM Role — Explanation Notes
+## 🧩 Trust Policy in IAM Role 
 
 ---
 
@@ -196,6 +216,9 @@ This ensures **temporary access** — even if Monica tries to re-assume the role
   }
 }
 ```
+
+---
+
 
 ---
 
