@@ -300,3 +300,78 @@ Now after 21:30 IST (2025-10-18T16:00:00Z), let's try again to ASSUME role.
 <img width="1366" height="768" alt="Developer Monica" src="https://github.com/user-attachments/assets/578a92f6-a298-4f5a-8550-85b0869e0992" />
 <br>
 
+---
+
+Now as Monica, let's startr application development.
+
+### 0 — Pre-req checklist (do before instance setup)
+
+-  Create an S3 bucket, e.g. star-cloud-bucket
+
+<img width="1366" height="726" alt="image" src="https://github.com/user-attachments/assets/00c4a790-41ac-4069-81c5-27697211f74d" />
+<br>
+
+-  Create an IAM policy that allows S3 Put/Get on that bucket.
+
+   -  Console → IAM → Policies → Create policy → JSON → paste following JSON code →
+
+      -  Resource : `arn:aws:s3:::star-cloud-bucket` _(Copy ARN of `star-cloud-bucket` or bucket you created)_
+      -  Replace it in below code.
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowS3UploadAndGet",
+      "Effect": "Allow",
+      "Action": [
+        "s3:PutObject",
+        "s3:GetObject",
+        "s3:ListBucket",
+        "s3:PutObjectAcl"
+      ],
+      "Resource": [
+        "arn:aws:s3:::star-cloud-bucket",
+        "arn:aws:s3:::star-cloud-bucket/*"
+      ]
+    }
+  ]
+}
+```
+<br>
+<img width="1366" height="727" alt="image" src="https://github.com/user-attachments/assets/2b431b27-b858-4154-a684-a0ff5102618b" />
+<br>
+
+<img width="1366" height="730" alt="image" src="https://github.com/user-attachments/assets/bf774ac6-422e-4beb-a9ef-62af84b00391" />
+<br>
+
+
+-  Review → Name: `StarCloudS3UploadPolicy` → Create.
+
+
+-  Create an IAM role (instance profile) and attach that policy. Attach the role to the EC2 instance when launching (or attach afterwards).
+-  Security Group: allow SSH (port 22) from your IP, HTTP (80) from required sources (0.0.0.0/0 if public).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
