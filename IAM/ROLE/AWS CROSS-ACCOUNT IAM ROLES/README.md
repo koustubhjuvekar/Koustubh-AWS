@@ -71,6 +71,39 @@ Under **Maximum session duration**, choose **5 hours (18,000 seconds)**.
 
   -  `arn:aws:iam::494341429801:role/WeDevelopMonicaRole`
 
+-  Now Scroll down → Click on `Permissions` → Add Permission → Create inline policy → JSON →
+-  Paste below policy
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "iam:CreatePolicy",
+        "iam:GetPolicy",
+        "iam:ListPolicies",
+        "s3:*"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+```
+
+-  Name - `EditPolicyPermissionForMonica`
+
+<img width="1352" height="644" alt="image" src="https://github.com/user-attachments/assets/947e1897-884c-4780-8beb-b779057fbe3e" />
+<br>
+
+-  Create Policy!
+
+<img width="1352" height="641" alt="image" src="https://github.com/user-attachments/assets/5f564d1b-824e-4ed9-959a-ea61ae83cb6a" />
+<br>
+
+So this policy gives Monica full access to all S3 buckets and objects in your AWS account, and also allows her to create, view, and list IAM policies. Because while working with s3, she needs to create policy.
+
 - Now Scroll down → Go to **`Trust relationships`** → Edit trust policy → 
 
 ```json
