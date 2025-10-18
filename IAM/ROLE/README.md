@@ -261,7 +261,7 @@ but they’ll expire automatically when their STS token ends (within 1 hour max)
 
 ---
 
-###🧩 Q1. Why after 1 hour John was still able to assume or use the role even though role session duration was 1 hour?
+### 🧩 Q1. Why after 1 hour John was still able to assume or use the role even though role session duration was 1 hour?
 
 Answer (Part 1 — Reason):
 
