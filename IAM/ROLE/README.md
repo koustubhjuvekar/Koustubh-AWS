@@ -225,7 +225,7 @@ Then there is a option <kbd>**Switch back**</kbd>. If `John` click on that optio
 ---
 
 
-Now after 1hr `John` will be restricted for access to s3, that means using this role. 
+Now after 1hr `John`'s session will be expire. for access to s3, that means using this role. 
 
 But if he continues and not leaving, or if he is able to ASSUME role again and again, then Log in ADMIN and check policy, add condition there.
 
@@ -258,6 +258,18 @@ but they’ll expire automatically when their STS token ends (within 1 hour max)
     ]
 }
 ```
+
+---
+### 🧩 Q2. What happens if the Condition is not added and only the role’s “Maximum session duration” is set to 1 hour?
+
+Answer (Part 1 — Behavior):
+-	If only the 1-hour maximum session duration is set, John’s individual session (temporary credentials from sts:AssumeRole) will automatically expire after 1 hour.
+-	However, after expiry, John can simply assume the role again — creating a new 1-hour session.
+-	AWS does not prevent re-assuming unless a time-based Condition or permission restriction is added.
+
+Answer (Part 2 — Result for John):
+-	John will lose access only when his current session token expires,
+-	but he can immediately switch role again or run sts:AssumeRole again to regain full access — effectively having unlimited total access, just in 1-hour blocks.
 
 ---
 
