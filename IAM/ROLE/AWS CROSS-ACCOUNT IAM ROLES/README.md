@@ -63,10 +63,13 @@ Under **Maximum session duration**, choose **5 hours (18,000 seconds)**.
 - **Role name:** `WeDevelopMonicaRole`
 - **Description** - `This role is created for development, for Monica at WeDevelop Company.`
 
+Create Role!
+
 <img width="1350" height="640" alt="image" src="https://github.com/user-attachments/assets/e865c899-0f22-40dc-b409-eda86fd42de5" />
 <br>
+<br>
 
-- Go to IAM → Roles →  `WeDevelopMonicaRole`
+- Now Go to IAM → Roles →  `WeDevelopMonicaRole`
 - Note the **Role ARN**, for example:
 
   -  `arn:aws:iam::494341429801:role/WeDevelopMonicaRole`
@@ -92,6 +95,10 @@ Under **Maximum session duration**, choose **5 hours (18,000 seconds)**.
 }
 ```
 
+<img width="1352" height="641" alt="image" src="https://github.com/user-attachments/assets/5f564d1b-824e-4ed9-959a-ea61ae83cb6a" />
+<br>
+<br>
+
 -  Name - `EditPolicyPermissionForMonica`
 
 <img width="1352" height="644" alt="image" src="https://github.com/user-attachments/assets/947e1897-884c-4780-8beb-b779057fbe3e" />
@@ -99,8 +106,7 @@ Under **Maximum session duration**, choose **5 hours (18,000 seconds)**.
 
 -  Create Policy!
 
-<img width="1352" height="641" alt="image" src="https://github.com/user-attachments/assets/5f564d1b-824e-4ed9-959a-ea61ae83cb6a" />
-<br>
+
 
 So this policy gives Monica full access to all S3 buckets and objects in your AWS account, and also allows her to create, view, and list IAM policies. Because while working with s3, she needs to create policy.
 
