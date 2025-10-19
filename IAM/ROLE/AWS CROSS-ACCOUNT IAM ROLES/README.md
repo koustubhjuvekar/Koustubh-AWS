@@ -1,6 +1,7 @@
-# 🚀 AWS Cross-Account IAM Role (Vendor Developer Access)
+# 🚀 `AWS Cross-Account IAM Role`
 
-## 🧠 Question
+## Task
+
 Your company **StarCloud (Admin account: Koustubh-Admin)** hires an external vendor company **WeDevelop**.  
 WeDevelop assigns their developer **Monica** to work temporarily in your AWS account to:
 
@@ -12,7 +13,7 @@ You want **Monica** to have this access for only **5 hours**, after which her ac
 
 ---
 
-## 🏢 Scenario Explanation (Professional Context)
+## Scenario Explanation 
 
 This is a real-world **cross-account collaboration model**.  
 In cloud-based projects, companies often invite external vendors or freelancers to develop, configure, or test applications within their AWS environment.  
@@ -26,18 +27,19 @@ To do this securely, instead of sharing credentials, the company creates a **tem
 | **Developer Monica** | IAM user in WeDevelop who assumes the role you provide |
 | **Temporary access** | Automatically expires after the role session ends (5 hours) |
 
-### ✅ This ensures:
+### This ensures:
 - No permanent credentials are shared  
 - You control what Monica can do (e.g., only EC2 + S3)  
 - Access auto-expires after 5 hours (session duration)
 
 ---
 
-## ⚙️ Implementation Steps
+## `Steps`
 
 ### **A. Steps in Your Account — StarCloud (Admin Account)**
 
-#### 1. Create a Role
+### **1. Create a Role**
+
 - Console → **IAM → Roles → Create role**
 - Select **Another AWS account**
 - Enter **WeDevelop’s AWS Account ID** (Monica’s account ID)
@@ -50,12 +52,14 @@ To do this securely, instead of sharing credentials, the company creates a **tem
 <br>
 
 
-#### 2. Attach Policies
+### **2. Attach Policies**
+
 Attach the following AWS managed policies:
 - `AmazonEC2FullAccess`
 - `AmazonS3FullAccess`
 
-#### 3. Set Session Duration
+### **3. Set Session Duration**
+
 Under **Maximum session duration**, choose **5 hours (18,000 seconds)**.
 
 #### 4. Review and Create Role
