@@ -1,4 +1,4 @@
-## 🚀 AWS Cross-Account IAM Role (Vendor Developer Access)
+# 🚀 AWS Cross-Account IAM Role (Vendor Developer Access)
 
 ## 🧠 Question
 Your company **StarCloud (Admin account: Koustubh-Admin)** hires an external vendor company **WeDevelop**.  
@@ -341,11 +341,9 @@ Now after 21:30 IST (2025-10-18T16:00:00Z), let's try again to ASSUME role.
 
 ---
 
-Now as Monica, let's start application development.
+Now as Monica, let's start application development, after she assumes role given by StarCloud.
 
 ### Step 1 — Launch an EC2 Instance
-
-In StarCloud account (after assuming role):
 
 -  Name: `image-upload-app`
 -  AMI: `Amazon Linux 2023 (or Ubuntu 22.04)`
@@ -359,18 +357,46 @@ In StarCloud account (after assuming role):
 <img width="1366" height="725" alt="image" src="https://github.com/user-attachments/assets/37c660e3-4bdf-4e97-a01b-5364d5d966cc" />
 <br>
 
-# ERROr of s3
-Monica can create bucket using command or from website console or use an existing bucket.
+
+-  Copy EC2 ip
+-  Open powershell or client SSH
+
+Now connect to EC2 for web application development! 
+
+```bash
+ssh -i "C:\Users\koust\Downloads\MonicaKeyPair.pem" ec2-user@13.51.166.62
+```
+
+```bash
+sudo yum update -y
+```
+
+### Creating s3 bucket
+
+As a Monica, you can create bucket using command or from website console or use an existing bucket.
+
+-  To create bucket using CLI, run this command in terminal of EC2,
+  
 ```bash
 aws s3 mb s3://monica-image-upload-bucket --region eu-north-1
 ```
-but here you might see an error. WHY? Because now Monica has full access to s3 and EC2 services in StarCloud Company's AWS account. So she launched EC2 also and get connected. But now she want's to create s3 bucket using commands, that means from EC2. That means **This EC2 must have permission to run command and access s3.**
+
+## May be you can see...
+
+# ERROr of s3
+
+**WHY?** Because now Monica has full access to s3 and EC2 services in StarCloud Company's AWS account. So she launched EC2 also and get connected. But now she wants to create s3 bucket using commands, that means from EC2. That means **This EC2 must have permission to run command and access s3.**
 
 So let's go back to StarCloud(My ADMIN) Koustubh-admin account, and create role for `EC2` to access `AmazonEC2FullAccess` and `AmazonS3FullAccess`, So we can create s3 bucket from this EC2.
+
+***
+Also we need to create custom policy to Give some more actions for s3.
 
 _In real case Monica can't do, she has to request ADMIN of StarCloud Company to create that role for EC2 and attach_ 
 
 _OR else she can create bucket manually from website_
+
+---
 
 So for while in ADMIN account,
 
@@ -463,63 +489,235 @@ AWS automatically attaches the role to the instance. The instance will now assum
 
 ---
 
-### Now Again go back to Monica's console...
+### Now As a Monica, again go back to your console, refresh it!
 
 
+### STEP 4 — Install Required Packages
 
+```bash
+sudo yum update -y
+sudo yum install -y nodejs git
+```
+Verify Node:
 
+```bash
+node -v
+npm -v
+```
 
+### STEP 5 — Create Project Folder
 
+```bash
+mkdir image-upload
+cd image-upload
+npm init -y
+npm install express aws-sdk multer cors
+```
 
+STEP 6 — Backend (index.js)
 
+Create file:
+```bash
+nano index.js
+```
 
+Paste below code 👇
 
+Just replace 2 fields as per your situation:
+-  your region
+-  your bucket name
 
+```js
+const express = require('express');
+const multer = require('multer');
+const AWS = require('aws-sdk');
+const cors = require('cors');
+const app = express();
 
+app.use(cors());
+const upload = multer({ storage: multer.memoryStorage() });
 
+AWS.config.update({ region: 'ap-south-1' }); // change region
+const s3 = new AWS.S3();
+const BUCKET = 'monica-image-upload-bucket'; // change to your bucket name
 
+app.post('/upload', upload.single('file'), (req, res) => {
+  const params = {
+    Bucket: BUCKET,
+    Key: Date.now() + '_' + req.file.originalname,
+    Body: req.file.buffer,
+    ContentType: req.file.mimetype
+  };
 
+  s3.upload(params, (err, data) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error uploading file');
+    } else {
+      res.send({ message: 'Upload successful', url: data.Location });
+    }
+  });
+});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Create a separate EC2 Role (best practice)
-
-👉 Keep your WeDevelopMonicaRole as the cross-account role for Monica.<br>
-👉 Create a new role for the EC2 instance with S3 + EC2 access.
-
-Steps:
-
--  In StarCloud (your admin) account → IAM → Roles → Create Role
--  Choose Trusted entity: `AWS service`
--  Choose Use case: `EC2`
--  Attach policies: `AmazonEC2FullAccess` `AmazonS3FullAccess`
--  Role name: `EC2AccessRole`
-
-<img width="1365" height="643" alt="image" src="https://github.com/user-attachments/assets/fb226bbb-9b43-436c-8466-24d3466b4e61" />
+app.use(express.static('public'));
+app.listen(80, () => console.log('Server started on port 80'));
+```
 <br>
 
+Save file!
+
+### STEP 7 — Frontend (public/index.html)
+
+Create a folder and file:
+```bash
+mkdir public
+nano public/index.html
+```
+Paste this code 👇
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Upload to S3</title>
+</head>
+<body>
+  <h2>Upload Image to S3</h2>
+  <input type="file" id="fileInput">
+  <button onclick="uploadFile()">Upload</button>
+  <p id="msg"></p>
+
+<script>
+async function uploadFile() {
+  const file = document.getElementById('fileInput').files[0];
+  if (!file) return alert('Select a file first!');
+
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const response = await fetch('/upload', { method: 'POST', body: formData });
+  const result = await response.json();
+  document.getElementById('msg').innerHTML =
+    result.url ? `✅ Uploaded! <a href="${result.url}" target="_blank">View</a>` : '❌ Failed';
+}
+</script>
+</body>
+</html>
+```
 <br>
 
-Create the role.
+Now run:
 
-Then attach it to the EC2 instance:
--  EC2 → Actions → Security → Modify IAM Role → Select EC2AccessRole → Update
+```bash
+sudo node index.js
+```
+<img width="1366" height="729" alt="image" src="https://github.com/user-attachments/assets/18036c95-f2f9-4615-8cfe-b52346bc328a" />
+<br>
 
----------->
+## STEP 9 — Test from Browser
 
-Now As a Monica, again go back to Monica's console, refresh it!
-Now from powershell, try to create s3 bucket again!
+-  Now first go to s3 → Click on your bucket (monica-image-upload-bucket) → See it's empty.
+
+<img width="1366" height="724" alt="image" src="https://github.com/user-attachments/assets/731fd09d-c0f7-4438-98fb-28c835be7f9a" />
+<br>
+
+-  Now Visit your EC2 public IPv4:
+
+   -  http://<EC2-Public-IP>/
+     
+   -  here `http://13.51.166.62/`
+
+<img width="1366" height="726" alt="image" src="https://github.com/user-attachments/assets/b04c8f58-71c4-4a2d-8b21-43fdbeaa46e1" />
+<br>
+
+   -  Select any image and click `Upload`.
+   -  Wait 2–3 seconds — you’ll see a success link.
+   -  Click link → image should open directly from S3 bucket.
+
+<img width="1366" height="728" alt="image" src="https://github.com/user-attachments/assets/3b911613-3bc7-442f-9742-c2fd4ff7a388" />
+<br>
+
+<img width="1366" height="725" alt="image" src="https://github.com/user-attachments/assets/fd2a1a5c-f10c-41af-a9c7-f62bccacaf51" />
+<br>
+
+Now if you click on `View` you may see access deined and output like in below image. This is because now we are acting as a public and we have blocked all publick access to s3 bucket, which is better approach for security.
+You are directly trying to access image in s3, which is not possible. So only for testing purpose, let's allow public access in s3.
+
+<img width="1366" height="726" alt="image" src="https://github.com/user-attachments/assets/02f3b39c-b64b-4672-85a5-97da1dd5f16a" />
+<br><br>
+
+So now let's fix it.
+
+-  Make the bucket (and files) public for testing
+
+   -  Go to S3 Console → Your bucket (monica-image-upload-bucket)
+   -  Click Permissions tab
+   -  Scroll to **Block public access (bucket settings)** → Click Edit
+   -  **Uncheck** `Block all public access`
+   -  Confirm and Save
+
+<img width="1366" height="723" alt="image" src="https://github.com/user-attachments/assets/03a7042d-2463-49db-838f-5727639e6d57" />
+<br>
+
+-  Scroll to Bucket Policy → Add this JSON:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowPublicRead",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::monica-image-upload-bucket/*"
+    }
+  ]
+}
+```
+
+<img width="1366" height="726" alt="image" src="https://github.com/user-attachments/assets/3309859b-e6f6-46be-9cb3-9a289ab517e1" />
+<br><br>
+
+
+-  Save changes.
+
+Now go back to your upload page and click on `view`. — it should open in your browser ✅
+
+<img width="1366" height="727" alt="image" src="https://github.com/user-attachments/assets/a08aa04f-1d5b-4d34-9f6f-8c2c3c2be33e" />
+<br>
+
+### STEP 10 — Verify in AWS Console
+
+Go to:
+
+-  S3 → your bucket → here (monica-image-upload-bucket) → check `Objects` tab → **Refresh it**!
+
+Your uploaded file should appear!!
+
+<img width="1366" height="726" alt="image" src="https://github.com/user-attachments/assets/820b9c8d-672c-49e6-ae47-b7583b98e00b" />
+
+Click on image file
+
+### Here you will see all the details of image! Here you can download and open image!
+
+---
+
+## Here we done with the testing for **`AWS Cross-Account IAM Role`**
+
+---
+
+Now Monica's Role will expire after 5hrs and she won't be assume it again! 
+
+So StarCloud company's application is developed by Monica who is Developer in WeDevelop company(Another).
+Using IAM Role for Another AWS account, we (Koustubh-admin = StarCloud company) assigned a IAM Role to Monica for 5hrs, to develop **Photo Uploading application using EC2 and s3**.
+We gave her `AmazonEC2FullAccess` and `AmazonS3FullAccess` for 5hrs. She developed application and tested successfully.
+
+So IAM Role assigned to her will expire after 5hrs and she'll loose access or if still time left, but work is done. Then
+-  She can Switch back and exit from role - From her console
+-  As Admin, we can revoke session - From Koustubh-admin account.
+
+
+
+
+
+THE END
