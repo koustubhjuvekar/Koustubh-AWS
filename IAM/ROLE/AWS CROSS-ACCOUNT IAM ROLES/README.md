@@ -341,69 +341,129 @@ Now after 21:30 IST (2025-10-18T16:00:00Z), let's try again to ASSUME role.
 
 ---
 
-Now as Monica, let's startr application development.
+Now as Monica, let's start application development.
 
-### 0 — Pre-req checklist (do before instance setup)
+### Step 1 — Launch an EC2 Instance
 
--  Create an S3 bucket, e.g. star-cloud-bucket
+In StarCloud account (after assuming role):
 
-<img width="1366" height="726" alt="image" src="https://github.com/user-attachments/assets/00c4a790-41ac-4069-81c5-27697211f74d" />
+-  Name: `image-upload-app`
+-  AMI: `Amazon Linux 2023 (or Ubuntu 22.04)`
+-  Instance type: `t2.micro`
+-  Security group:
+   -  `SSH (22) — Your IP`
+   -  `HTTP (80) — Anywhere (0.0.0.0/0)`
+-  IAM Role: the one Monica assumed (has S3FullAccess and EC2FullAccess) + EC2AccessRole
+-  Key pair: select one (e.g., MonicaKeyPair)
+
+<img width="1366" height="725" alt="image" src="https://github.com/user-attachments/assets/37c660e3-4bdf-4e97-a01b-5364d5d966cc" />
 <br>
 
--  Create an IAM policy that allows S3 Put/Get on that bucket.
+# ERROr of s3
+Monica can create bucket using command or from website console or use an existing bucket.
+```bash
+aws s3 mb s3://monica-image-upload-bucket --region eu-north-1
+```
+but here you might see an error. WHY? Because now Monica has full access to s3 and EC2 services in StarCloud Company's AWS account. So she launched EC2 also and get connected. But now she want's to create s3 bucket using commands, that means from EC2. That means **This EC2 must have permission to run command and access s3.**
 
-   -  Console → IAM → Policies → Create policy → JSON → paste following JSON code →
+So let's go back to StarCloud(My ADMIN) Koustubh-admin account, and create role for `EC2` to access `AmazonEC2FullAccess` and `AmazonS3FullAccess`, So we can create s3 bucket from this EC2.
 
-      -  Resource : `arn:aws:s3:::star-cloud-bucket` _(Copy ARN of `star-cloud-bucket` or bucket you created)_
-      -  Replace it in below code.
+_In real case Monica can't do, she has to request ADMIN of StarCloud Company to create that role for EC2 and attach_ 
+
+_OR else she can create bucket manually from website_
+
+So for while in ADMIN account,
+
+### Attach IAM Role to EC2 for S3 & Application Access
+
+Why?
+
+-  Allow the EC2 instance to directly access AWS services like Amazon S3 (for image upload and retrieval) and Amazon EC2 APIs (for management or automation tasks), without using any Access Keys.
+-  This ensures secure and temporary credentials are automatically provided to the instance via the Instance Metadata Service (IMDS).
+
+0. Create Policy (1 custom policy needed to allow s3 actions, and the we attach policy to role, so firstly...)
+
+   -  Go to IAM → Policies →  Create policy →  JSON
+   -  Copy and Paste JSON code given below as it is
 
 ```json
 {
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Sid": "AllowS3UploadAndGet",
+      "Sid": "AllowS3Upload",
       "Effect": "Allow",
       "Action": [
         "s3:PutObject",
         "s3:GetObject",
-        "s3:ListBucket",
-        "s3:PutObjectAcl"
+        "s3:ListBucket"
       ],
       "Resource": [
-        "arn:aws:s3:::star-cloud-bucket",
-        "arn:aws:s3:::star-cloud-bucket/*"
+        "arn:aws:s3:::starcloud-photo-storage",
+        "arn:aws:s3:::starcloud-photo-storage/*"
       ]
     }
   ]
 }
 ```
-<br>
-<img width="1366" height="727" alt="image" src="https://github.com/user-attachments/assets/2b431b27-b858-4154-a684-a0ff5102618b" />
-<br>
+   -  Set policy name: **`PhotoAppS3Policy`**
 
-<img width="1366" height="730" alt="image" src="https://github.com/user-attachments/assets/bf774ac6-422e-4beb-a9ef-62af84b00391" />
+Create policy!
 <br>
 
+1. Create an IAM Role
+      
+   -  In the AWS Management Console:
+      -  Navigate to IAM → Roles → Create Role
+   -  Trusted Entity Type: Select `AWS Service`
+   -  Choose `EC2` → Click Next
 
--  Review → Name: `StarCloudS3UploadPolicy` → Create.
+2. Now Attach the Following Policies to the role:
 
-
--  Create an IAM role (instance profile) and attach that policy. Attach the role to the EC2 instance when launching (or attach afterwards).
--  Security Group: allow SSH (port 22) from your IP, HTTP (80) from required sources (0.0.0.0/0 if public).
-
-
-
-
-
-
-
-
-
-
+|Policy Name	|  Purpose  |
+|------|--------------|
+|`AmazonS3FullAccess`	|  Gives full S3 access for uploading, downloading, and managing objects — useful during development/testing. |
+|`AmazonEC2FullAccess`	|  Enables EC2 management actions (optional, used if application needs to manage EC2 instances). |
+|`PhotoAppS3Policy` (custom)	|  Restricts access to a specific bucket used by the app (starcloud-photo-storage). Provides only upload, read, and list permissions. |
 
 
 
+<img width="1350" height="640" alt="image" src="https://github.com/user-attachments/assets/6ced2046-cd5a-471a-9654-858367dd2eb9" />
+<br>
+
+<img width="1351" height="640" alt="image" src="https://github.com/user-attachments/assets/44e133c8-710b-4a64-8068-807dd03f49b2" />
+<br>
+
+
+✅ Explanation:
+
+This custom policy grants:
+  
+  -  `PutObject` → to upload images to the S3 bucket.
+  -  `GetObject` → to retrieve or view uploaded images.
+  -  `ListBucket` → to list the contents of the bucket.
+
+It’s limited to one specific bucket, ensuring principle of least privilege (security best practice).
+
+3. Name & Create the Role
+
+  -  Role Name: `EC2AccessRole`
+  -  Review → Create Role.
+
+4. Attach Role to the EC2 Instance
+
+   -  After the instance is launched:
+   -  Go to EC2 → Instances
+   -  Select the instance → Actions → Security → Modify IAM Role
+   -  From dropdown, choose `EC2AccessRole`
+     
+Save changes.
+
+AWS automatically attaches the role to the instance. The instance will now assume this role every time it runs, and get temporary credentials for S3/EC2 access.
+
+---
+
+### Now Again go back to Monica's console...
 
 
 
@@ -414,3 +474,52 @@ Now as Monica, let's startr application development.
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Create a separate EC2 Role (best practice)
+
+👉 Keep your WeDevelopMonicaRole as the cross-account role for Monica.<br>
+👉 Create a new role for the EC2 instance with S3 + EC2 access.
+
+Steps:
+
+-  In StarCloud (your admin) account → IAM → Roles → Create Role
+-  Choose Trusted entity: `AWS service`
+-  Choose Use case: `EC2`
+-  Attach policies: `AmazonEC2FullAccess` `AmazonS3FullAccess`
+-  Role name: `EC2AccessRole`
+
+<img width="1365" height="643" alt="image" src="https://github.com/user-attachments/assets/fb226bbb-9b43-436c-8466-24d3466b4e61" />
+<br>
+
+<br>
+
+Create the role.
+
+Then attach it to the EC2 instance:
+-  EC2 → Actions → Security → Modify IAM Role → Select EC2AccessRole → Update
+
+---------->
+
+Now As a Monica, again go back to Monica's console, refresh it!
+Now from powershell, try to create s3 bucket again!
